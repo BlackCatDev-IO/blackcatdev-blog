@@ -1,5 +1,5 @@
 import { getBlogPosts, getBlogPostsById } from '../../api/fetch-blogs';
-import { ContentBlock } from './types/blog';
+import { ContentBlock } from '../types/blog';
 import Image from 'next/image';
 
 export async function generateStaticParams() {

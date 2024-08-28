@@ -1,4 +1,4 @@
-import { BlogPostData } from '../post/[id]/types/blog';
+import { BlogPostData } from '../post/types/blog';
 
 const baseUrl = process.env.baseUrl;
 

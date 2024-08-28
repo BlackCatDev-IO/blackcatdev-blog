@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { getBlogPosts } from './api/fetch-blogs';
-import { BlogPostData } from './post/[id]/types/blog';
+import { BlogPostData } from './post/types/blog';
 
 export default async function Home() {
   const blogs = await getBlogPosts();
