@@ -1,0 +1,36 @@
+.blogCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--card-background);
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+  height: 200px;
+  transition: background-color 0.3s;
+  width: 90%;
+  margin: 0 auto 1rem auto;
+}
+
+.blogCard img {
+  border-radius: 10px;
+  width: 160px;
+  height: 160px;
+}
+
+.blogCard h2 {
+  font-size: 1.2rem;
+  margin: 1rem;
+  width: 70%;
+  text-align: center;
+}
+
+.blogCard:hover {
+  background-color: rgba(68, 70, 93, 0.5);
+}
+
+@media (max-width: 768px) {
+  .blogCard h2 {
+    font-size: 0.9rem;
+  }
+}
