@@ -1,6 +1,11 @@
-import { getBlogPosts, getBlogPostsById } from '../../api/fetch-blogs';
+import {
+  getBlogPosts,
+  getBlogPostsById as getBlogPostById,
+} from '../../api/fetch-blogs';
 import { ContentBlock } from '../types/blog';
 import Image from 'next/image';
+import styles from './blog-post.module.css';
+import formatDate from '../../utils/date-formatter';
 
 export async function generateStaticParams() {
   const posts = await getBlogPosts();
@@ -11,9 +16,29 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: { params: { id: string } }) {
-  const blog = await getBlogPostsById({ id: params.id });
+  const blog = await getBlogPostById({ id: params.id });
+  const attributes = blog.attributes;
+  const image = attributes.image.data[0].attributes;
+  const baseUrl = process.env.baseUrl;
+  const imageUrl = `${baseUrl}${image.url}`;
+  const formattedDate = formatDate(attributes.dateCreated);
 
-  return <RenderContent content={blog.attributes.content} />;
+  return (
+    <div className={styles.container}>
+      <h1 className={styles.title}>{attributes.title}</h1>
+      <p className={styles.subTitle}>{attributes.subTitle}</p>
+      <p className={styles.publishedDate}>{formattedDate}</p>
+      <Image
+        className={styles.mainImage}
+        src={imageUrl}
+        alt={image.name}
+        width={image.width}
+        height={image.height}
+      />
+      <p className={styles.imageCaption}>{image.caption} </p>
+      <RenderContent content={attributes.content} />
+    </div>
+  );
 }
 
 const RenderContent: React.FC<{ content: ContentBlock[] }> = ({ content }) => {

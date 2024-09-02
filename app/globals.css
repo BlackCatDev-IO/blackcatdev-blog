@@ -2,16 +2,11 @@
   --max-width: 1100px;
   --border-radius: 12px;
   --main-bg-color: #0a192e;
+  --font-color: rgb(235, 228, 228);
   --card-background: rgba(255, 255, 255, 0.038);
   --font-mono: ui-monospace, Menlo, Monaco, 'Cascadia Mono', 'Segoe UI Mono',
     'Roboto Mono', 'Oxygen Mono', 'Ubuntu Monospace', 'Source Code Pro',
     'Fira Mono', 'Droid Sans Mono', 'Courier New', monospace;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-  }
 }
 
 * {
@@ -25,6 +20,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   background: var(--main-bg-color);
+  color: var(--font-color);
 }
 
 body {
@@ -49,14 +45,41 @@ a {
 }
 
 h1 {
+  text-align: center;
   font-size: 2.5rem;
   font-weight: 700;
-  margin: 10rem 0;
-  text-align: center;
+  margin: 10rem 0 1rem 0;
+}
+
+h2 {
+  font-size: 2.2rem;
+  font-weight: 600;
+  margin: 4rem 0 1rem 0;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 2rem 0 1rem 0;
+  font-weight: bold;
 }
 
 ul {
   list-style: none;
+}
+
+blockquote {
+  border-left: 5px solid #8b7e7e;
+  margin: 2.5em 10px;
+  padding: 1em 10px;
+  color: rgb(188, 177, 177);
+  font-style: italic;
+  quotes: '\201C''\201D''\2018''\2019';
+}
+
+p {
+  margin: 0 0 2rem 0;
+  line-height: 2;
 }
 
 @media (max-width: 768px) {
