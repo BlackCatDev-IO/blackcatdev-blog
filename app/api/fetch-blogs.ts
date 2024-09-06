@@ -3,7 +3,7 @@ import { BlogPostData } from '../post/types/blog';
 const baseUrl = process.env.baseUrl;
 
 export async function getBlogPosts(): Promise<BlogPostData[]> {
-  const url = `${baseUrl}/api/blog-posts/?populate=image`;
+  const url = `${baseUrl}/api/blog-posts/?populate=image&sort=dateCreated:desc`;
 
   try {
     const res = await fetch(url, {
