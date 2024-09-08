@@ -87,7 +87,7 @@ const RenderContent: React.FC<{ content: ContentBlock[] }> = ({ content }) => {
           return (
             <ul key={index}>
               {block.children.map((item, idx) => (
-                <li key={idx}>{item.children?.[0]?.text}</li>
+                <li className={ styles.bulletList} key={idx}>{item.children?.[0]?.text}</li>
               ))}
             </ul>
           );
@@ -97,13 +97,16 @@ const RenderContent: React.FC<{ content: ContentBlock[] }> = ({ content }) => {
         const image = block.image;
 
         return (
-          <Image
-            key={index}
-            src={image?.url || ''}
-            alt={image?.alternativeText || ''}
-            width={image?.width}
-            height={image?.height}
-          />
+          <div key={index} className={styles.imageContainer}>
+            <Image
+              className={styles.blogImage}
+              key={index}
+              src={image?.url || ''}
+              alt={image?.alternativeText || ''}
+              width={image?.width}
+              height={image?.height}
+            />
+          </div>
         );
 
       case 'quote':
