@@ -69,7 +69,12 @@ const RenderContent: React.FC<{ content: ContentBlock[] }> = ({ content }) => {
                   return <del key={idx}>{child.text}</del>;
                 case child.type === 'link':
                   return (
-                    <a key={idx} href={child.url}>
+                    <a
+                      key={idx}
+                      href={child.url}
+                      className={styles.link}
+                      target="_blank"
+                    >
                       {child.children ? child.children[0].text : child.text}
                     </a>
                   );
