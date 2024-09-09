@@ -11,16 +11,22 @@ export async function generateStaticParams() {
   const posts = await getBlogPosts();
 
   return posts.map((post) => ({
-    id: post.id.toString(),
+    slug: post.attributes.slug,
   }));
 }
 
-export default async function Page({ params }: { params: { id: string } }) {
-  const blog = await getBlogPostById({ id: params.id });
+export default async function Page({ params }: { params: { slug: string } }) {
+  console.log('slug');
+  console.log(params.slug);
+
+  const blog = await getBlogPostById({ slug: params.slug });
   const attributes = blog.attributes;
+  console.log(blog.attributes.title);
   const image = attributes.image.data[0].attributes;
   const baseUrl = process.env.baseUrl;
   const imageUrl = `${baseUrl}${image.url}`;
+  console.log('imageURl');
+  console.log(imageUrl);
   const formattedDate = formatDate(attributes.dateCreated);
 
   return (
@@ -87,7 +93,9 @@ const RenderContent: React.FC<{ content: ContentBlock[] }> = ({ content }) => {
           return (
             <ul key={index}>
               {block.children.map((item, idx) => (
-                <li className={ styles.bulletList} key={idx}>{item.children?.[0]?.text}</li>
+                <li className={styles.bulletList} key={idx}>
+                  {item.children?.[0]?.text}
+                </li>
               ))}
             </ul>
           );

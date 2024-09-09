@@ -24,11 +24,11 @@ export async function getBlogPosts(): Promise<BlogPostData[]> {
 }
 
 export async function getBlogPostsById({
-  id,
+  slug: slug,
 }: {
-  id: string;
+  slug: string;
 }): Promise<BlogPostData> {
-  const url = `${baseUrl}/api/blog-posts/${id}?populate=image`;
+  const url = `${baseUrl}/api/blog-posts?filters[slug]=${slug}&populate=image`;
 
   try {
     const res = await fetch(url, {
@@ -41,7 +41,7 @@ export async function getBlogPostsById({
 
     const json = await res.json();
 
-    return json.data as BlogPostData;
+    return json.data[0] as BlogPostData;
   } catch (error) {
     console.error(error);
     throw new Error('Error on request');

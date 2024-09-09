@@ -92,6 +92,7 @@ interface BlogPostAttributes {
   image: {
     data: MainImage[];
   };
+  slug: string;
 }
 
 export interface BlogPostData {
