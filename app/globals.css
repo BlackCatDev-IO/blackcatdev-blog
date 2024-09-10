@@ -61,7 +61,6 @@ h3 {
   font-weight: bold;
 }
 
-
 ul {
   margin-bottom: 2rem;
   list-style: none;
@@ -91,6 +90,16 @@ blockquote {
 p {
   margin: 0 0 2rem 0;
   line-height: 2;
+}
+
+.social-icons {
+  display: flex;
+  gap: 2rem;
+  margin: 0.5rem 2rem;
+}
+
+.social-icons a {
+  display: inline-block;
 }
 
 @media (max-width: 768px) {

@@ -41,7 +41,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
         width={image.width}
         height={image.height}
       />
-      <p className={styles.imageCaption}>{image.caption} </p>
+      <p className={styles.titleImageCaption}>{image.caption} </p>
       <RenderContent content={attributes.content} />
     </div>
   );
@@ -108,6 +108,7 @@ const RenderContent: React.FC<{ content: ContentBlock[] }> = ({ content }) => {
 
       case 'image':
         const image = block.image;
+        const caption = image?.caption;
 
         return (
           <div key={index} className={styles.imageContainer}>
@@ -119,6 +120,7 @@ const RenderContent: React.FC<{ content: ContentBlock[] }> = ({ content }) => {
               width={image?.width}
               height={image?.height}
             />
+            {caption && <p className={styles.imageCaption}>{caption}</p>}
           </div>
         );
 

@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Sen } from 'next/font/google';
 import './globals.css';
 import Script from 'next/script';
+import Image from 'next/image';
 
 const sen = Sen({ subsets: ['latin'] });
 
@@ -21,6 +22,44 @@ export default function RootLayout({
         <nav>
           <a href="https://blackcatdev.io">blackcatdev.io</a>
         </nav>
+        <div className="social-icons">
+          <a
+            href="https://www.linkedin.com/in/loren-aguey-51827947/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src="/linkedin-black-on-white.png"
+              alt="LinkedIn"
+              width={24}
+              height={24}
+            />
+          </a>
+          <a
+            href="https://github.com/BlackCatDev-IO"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src="/github-black-on-white.png"
+              alt="GitHub"
+              width={24}
+              height={24}
+            />
+          </a>
+          <a
+            href="https://medium.com/@loren.aguey"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Image
+              src="/medium-black-on-white.png"
+              alt="Medium"
+              width={24}
+              height={24}
+            />
+          </a>
+        </div>
         {children}
       </body>
       <Script
