@@ -28,12 +28,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
   console.log('imageURl');
   console.log(imageUrl);
   const formattedDate = formatDate(attributes.dateCreated);
+  const subHeading = `Published by Loren Aguey - ${formattedDate}`;
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{attributes.title}</h1>
-      <p className={styles.subTitle}>{attributes.subTitle}</p>
-      <p className={styles.publishedDate}>{formattedDate}</p>
+      {attributes.subTitle && (
+        <p className={styles.subTitle}>{attributes.subTitle}</p>
+      )}
+      <p className={styles.publishedDate}>{subHeading}</p>
       <Image
         className={styles.mainImage}
         src={imageUrl}
