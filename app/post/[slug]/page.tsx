@@ -16,17 +16,14 @@ export async function generateStaticParams() {
 }
 
 export default async function Page({ params }: { params: { slug: string } }) {
-  console.log('slug');
-  console.log(params.slug);
-
   const blog = await getBlogPostById({ slug: params.slug });
   const attributes = blog.attributes;
-  console.log(blog.attributes.title);
   const image = attributes.image.data[0].attributes;
   const baseUrl = process.env.baseUrl;
-  const imageUrl = `${baseUrl}${image.url}`;
-  console.log('imageURl');
-  console.log(imageUrl);
+
+  const imageUrl = image.url.startsWith('http')
+    ? image.url
+    : `${baseUrl}${image.url}`;
   const formattedDate = formatDate(attributes.dateCreated);
   const subHeading = `Published by Loren Aguey - ${formattedDate}`;
 

@@ -5,7 +5,9 @@ import styles from './blog-card.module.css';
 export function BlogCard({ blog: blog }: { blog: BlogPostData }) {
   const imageAttributes = blog.attributes.image.data[0].attributes;
   const baseUrl = process.env.baseUrl;
-  const imageUrl = `${baseUrl}${imageAttributes.url}`;
+  const imageUrl = imageAttributes.url.startsWith('http')
+    ? imageAttributes.url
+    : `${baseUrl}${imageAttributes.url}`;
 
   return (
     <div className={styles.blogCard}>
