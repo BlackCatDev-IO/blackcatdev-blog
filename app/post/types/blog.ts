@@ -15,6 +15,45 @@ export interface ContentBlock {
   format?: string;
   children: ContentChild[];
   image?: ImageDetails;
+  fields?: {
+    media?: {
+      id?: string;
+      url?: string;
+      alt?: string;
+      width?: number;
+      height?: number;
+      caption?: string;
+      thumbnailURL?: string;
+      alternativeText?: string;
+      filename?: string;
+    };
+    blockType?: string;
+    blockName?: string;
+  };
+
+  media?: {
+    id?: string;
+    url?: string;
+    alt?: string;
+    width?: number;
+    height?: number;
+    caption?: string;
+    thumbnailURL?: string;
+    alternativeText?: string;
+    filename?: string;
+  };
+  version?: number;
+}
+
+export interface PayloadContent {
+  root?: {
+    children: ContentBlock[];
+    direction?: string;
+    format?: string;
+    indent?: number;
+    type?: string;
+    version?: number;
+  };
 }
 
 interface ImageFormat {
@@ -81,23 +120,24 @@ interface MainImage {
   };
 }
 
-interface BlogPostAttributes {
+export interface BlogPostData {
   title: string;
-  subTitle: string;
+  subTitle?: string;
   dateCreated: string;
-  content: ContentBlock[];
+  content: PayloadContent | ContentBlock[];
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  image: {
-    data: MainImage[];
+  heroImage: {
+    url: string;
+    width: number;
+    height: number;
+    filename: string;
+    caption?: string;
+    alt?: string;
+    thumbnailURL?: string;
   };
   slug: string;
-}
-
-export interface BlogPostData {
-  id: number;
-  attributes: BlogPostAttributes;
 }
 
 interface BlogPostResponse {

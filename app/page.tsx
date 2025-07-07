@@ -12,7 +12,7 @@ export default async function Home() {
         <ul>
           {blogs.map((blog, index) => (
             <li key={index}>
-              <Link href={`/post/${blog.attributes.slug}`} key={blog.id}>
+              <Link href={`/post/${blog.slug}`} key={blog.slug}>
                 <BlogCard blog={blog} />
               </Link>
             </li>

@@ -4,115 +4,6 @@ const apiUrl = 'https://blackcatdev-blog-payload.vercel.app/api/posts';
 const baseUrl = 'https://blackcatdev-blog-payload.vercel.app';
 
 /**
- * Transform the new CMS post format to match the expected BlogPostData structure
- */
-function transformPostToCompatibleFormat(post: any): BlogPostData {
-  // Use the actual heroImage from the API response if available
-  const hasHeroImage = post.heroImage && post.heroImage.url;
-  const imageUrl = hasHeroImage
-    ? `${baseUrl}${post.heroImage.url}`
-    : 'https://placehold.co/800x600/jpeg?text=' +
-      encodeURIComponent(post.title);
-
-  // Get image dimensions from heroImage or use defaults
-  const width = hasHeroImage ? post.heroImage.width : 800;
-  const height = hasHeroImage ? post.heroImage.height : 600;
-  const mimeType = hasHeroImage ? post.heroImage.mimeType : 'image/jpeg';
-  const fileName = hasHeroImage ? post.heroImage.filename : 'placeholder.jpg';
-
-  const imageData = {
-    id: 1,
-    attributes: {
-      name: fileName,
-      alternativeText: post.title,
-      caption: null,
-      width: width,
-      height: height,
-      formats: {
-        large: {
-          ext: '.jpg',
-          url: imageUrl,
-          hash: '',
-          mime: mimeType,
-          name: '',
-          path: null,
-          size: 0,
-          width: width,
-          height: height,
-          sizeInBytes: 0,
-        },
-        small: {
-          ext: '.jpg',
-          url: imageUrl,
-          hash: '',
-          mime: mimeType,
-          name: '',
-          path: null,
-          size: 0,
-          width: width,
-          height: height,
-          sizeInBytes: 0,
-        },
-        medium: {
-          ext: '.jpg',
-          url: imageUrl,
-          hash: '',
-          mime: mimeType,
-          name: '',
-          path: null,
-          size: 0,
-          width: width,
-          height: height,
-          sizeInBytes: 0,
-        },
-        thumbnail: {
-          ext: '.jpg',
-          url: imageUrl,
-          hash: '',
-          mime: mimeType,
-          name: '',
-          path: null,
-          size: 0,
-          width: width,
-          height: height,
-          sizeInBytes: 0,
-        },
-      },
-      hash: '',
-      ext: '.jpg',
-      mime: mimeType,
-      size: 0,
-      url: imageUrl,
-      previewUrl: null,
-      provider: 'local',
-      provider_metadata: null,
-      createdAt: post.createdAt,
-      updatedAt: post.updatedAt,
-    },
-  };
-
-  // Transform the content structure
-  const transformedContent = transformContent(post.content);
-
-  return {
-    id: post.id || post._id,
-    attributes: {
-      title: post.title,
-      subTitle: '',
-      dateCreated: post.createdAt,
-      content: transformedContent,
-      createdAt: post.createdAt,
-      updatedAt: post.updatedAt,
-      publishedAt: post.publishedAt,
-      image: {
-        data: [imageData],
-      },
-      slug: post.slug,
-    },
-  };
-}
-
-/**
  * Transform the new content structure to match the expected format
  */
 function transformContent(content: any): any[] {
@@ -192,9 +83,7 @@ export async function getBlogPosts(): Promise<BlogPostData[]> {
     }
 
     const json = await res.json();
-    const posts = json.docs;
-
-    return posts.map(transformPostToCompatibleFormat);
+    return json.docs as BlogPostData[];
   } catch (error) {
     console.error(error);
     throw new Error('Error on request');
@@ -226,7 +115,7 @@ export async function getBlogPostsById({
       throw new Error(`Blog post with slug ${slug} not found`);
     }
 
-    return transformPostToCompatibleFormat(post);
+    return post as BlogPostData;
   } catch (error) {
     console.error(error);
     throw new Error('Error on request');

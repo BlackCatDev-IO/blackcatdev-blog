@@ -3,7 +3,7 @@ import Image from 'next/image';
 import styles from './blog-card.module.css';
 
 export function BlogCard({ blog: blog }: { blog: BlogPostData }) {
-  const imageAttributes = blog.attributes.image.data[0].attributes;
+  const imageAttributes = blog.heroImage;
   const baseUrl = process.env.baseUrl;
   const imageUrl = imageAttributes.url.startsWith('http')
     ? imageAttributes.url
@@ -13,12 +13,12 @@ export function BlogCard({ blog: blog }: { blog: BlogPostData }) {
     <div className={styles.blogCard}>
       <Image
         src={imageUrl}
-        key={imageAttributes.name}
-        alt={blog.attributes.title}
+        key={imageAttributes.filename}
+        alt={blog.title}
         width={100}
         height={100}
       />
-      <h2>{blog.attributes.title}</h2>
+      <h2>{blog.title}</h2>
     </div>
   );
 }
