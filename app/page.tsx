@@ -4,13 +4,14 @@ import { BlogCard } from './post/blog-card/blog-card';
 
 export default async function Home() {
   const blogs = await getBlogPosts();
+  const sortedBlogs = [...blogs].sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
 
   return (
     <main>
       <h1>Blog</h1>
       <div>
         <ul>
-          {blogs.map((blog, index) => (
+          {sortedBlogs.map((blog, index) => (
             <li key={index}>
               <Link href={`/post/${blog.slug}`} key={blog.slug}>
                 <BlogCard blog={blog} />
