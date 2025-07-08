@@ -15,6 +15,10 @@ export interface ContentBlock {
   format?: string;
   children: ContentChild[];
   image?: ImageDetails;
+  listType?: 'bullet' | 'number';
+  start?: number;
+  tag?: string;
+  value?: number;
   fields?: {
     media?: {
       id?: string;

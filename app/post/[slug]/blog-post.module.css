@@ -51,6 +51,16 @@
   object-fit: contain;
 }
 
+.list {
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.listItem {
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
 .bulletList {
   list-style-type: disc;
 }
@@ -63,4 +73,23 @@
   .container {
     margin: 0 30px;
   }
+}
+
+.blogPostPage {
+  /* Existing container styles can be merged here if needed */
+}
+
+.blogPostPage .list {
+  list-style-type: disc !important;
+  margin: 1rem 0;
+  padding-left: 2rem;
+}
+
+.blogPostPage ol.list {
+  list-style-type: decimal !important;
+}
+
+.blogPostPage .listItem {
+  margin: 0.5rem 0;
+  line-height: 1.6;
 }

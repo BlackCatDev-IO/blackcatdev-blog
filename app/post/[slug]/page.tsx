@@ -34,15 +34,15 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const image = blog.heroImage;
   const baseUrl =
     process.env.baseUrl || 'https://blackcatdev-blog-payload.vercel.app';
+  const formattedDate = formatDate(blog.publishedAt);
 
   const imageUrl = image.url.startsWith('http')
     ? image.url
     : `${baseUrl}${image.url}`;
 
   return (
-    <div className={styles.container}>
+    <div className={`${styles.container} ${styles.blogPostPage}`}>
       <h1 className={styles.title}>{blog.title}</h1>
-      <p className={styles.publishedDate}>{blog.dateCreated}</p>
       <Image
         className={styles.mainImage}
         src={imageUrl}
@@ -51,6 +51,9 @@ export default async function Page({ params }: { params: { slug: string } }) {
         height={image.height}
       />
       <p className={styles.titleImageCaption}>{image.caption} </p>
+      <p className={styles.titleImageCaption}>
+        Published by Loren Aguey - {formattedDate}
+      </p>
 
       <RenderContent
         content={
@@ -73,8 +76,6 @@ const RenderContent = ({ content }: { content: any }) => {
 
   return content.map((block, index) => {
     if (!block) return null;
-
-    console.log(`Processing block ${index}:`, block.type, block);
 
     switch (block.type) {
       case 'heading':
@@ -179,6 +180,33 @@ const RenderContent = ({ content }: { content: any }) => {
           );
         }
         return null;
+
+      case 'list':
+        const listTag = block.listType === 'number' ? 'ol' : 'ul';
+        return React.createElement(
+          listTag,
+          { key: index, className: styles.list },
+          block.children?.map((listItem: any, itemIndex: number) => (
+            <li key={itemIndex} className={styles.listItem}>
+              {listItem.children?.map((child: any, childIndex: number) => (
+                <span key={childIndex}>{child.text}</span>
+              ))}
+            </li>
+          ))
+        );
+
+      case 'listitem':
+        return (
+          <li
+            style={{ listStyle: 'disc' }}
+            key={index}
+            className={styles.listItem}
+          >
+            {block.children?.map((child: any, childIndex: number) => (
+              <span key={childIndex}>{child.text}</span>
+            ))}
+          </li>
+        );
 
       case 'quote':
         return <blockquote key={index}>{block.children[0].text}</blockquote>;
